@@ -38,26 +38,26 @@ index.add(embeddings)
 
 text = st.text_area(
     "Your text",
-    "I have a dream."
+    "I dreamed a dream."
 )
 
-if text:
-    # normalize embedding for cosine distance
-    text_embedding = bc.encode([text])
-    normalized_text_embedding = text_embedding / text_embedding.sum()
+if not text:
+    text = "Emptiness"
 
-    _, idx = index.search(normalized_text_embedding, 5)
+# normalize embedding for cosine distance
+text_embedding = bc.encode([text])
+normalized_text_embedding = text_embedding / text_embedding.sum()
 
-    relevant_quotes = quotes.iloc[idx.flatten()].QUOTE.values
-    relevant_authors = quotes.iloc[idx.flatten()].AUTHOR.values
+_, idx = index.search(normalized_text_embedding, 5)
 
-    st.subheader("Your quotes")
+relevant_quotes = quotes.iloc[idx.flatten()].QUOTE.values
+relevant_authors = quotes.iloc[idx.flatten()].AUTHOR.values
 
-    for q in range(5):
-        st.markdown('>'+relevant_quotes[q])
-        st.text(relevant_authors[q])
-else:
-    """Enter some text ^"""
+st.subheader("Your quotes")
+
+for q in range(5):
+    st.markdown('>'+relevant_quotes[q])
+    st.text(relevant_authors[q])
 
 st.subheader("What is this?")
 
