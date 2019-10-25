@@ -7,7 +7,7 @@ Built with:
 - [faiss](https://github.com/facebookresearch/faiss)
 - [streamlit](https://github.com/streamlit/streamlit)
 
-Data from [https://thewebminer.com/](https://thewebminer.com/).
+Quotes from [https://thewebminer.com/](https://thewebminer.com/).
 
 ## setup
 
