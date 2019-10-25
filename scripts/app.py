@@ -41,20 +41,23 @@ text = st.text_area(
     "I have a dream."
 )
 
-# normalize embedding for cosine distance
-text_embedding = bc.encode([text])
-normalized_text_embedding = text_embedding / text_embedding.sum()
+if text:
+    # normalize embedding for cosine distance
+    text_embedding = bc.encode([text])
+    normalized_text_embedding = text_embedding / text_embedding.sum()
 
-_, idx = index.search(normalized_text_embedding, 5)
+    _, idx = index.search(normalized_text_embedding, 5)
 
-relevant_quotes = quotes.iloc[idx.flatten()].QUOTE.values
-relevant_authors = quotes.iloc[idx.flatten()].AUTHOR.values
+    relevant_quotes = quotes.iloc[idx.flatten()].QUOTE.values
+    relevant_authors = quotes.iloc[idx.flatten()].AUTHOR.values
 
-st.subheader("Your quotes")
+    st.subheader("Your quotes")
 
-for q in range(5):
-    st.markdown('>'+relevant_quotes[q])
-    st.text(relevant_authors[q])
+    for q in range(5):
+        st.markdown('>'+relevant_quotes[q])
+        st.text(relevant_authors[q])
+else:
+    """Enter some text ^"""
 
 st.subheader("What is this?")
 
