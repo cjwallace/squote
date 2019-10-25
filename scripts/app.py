@@ -12,7 +12,7 @@ from bert_serving.client import BertClient
 st.title("Squote")
 st.subheader("Semantic quote search")
 
-"Enter your text and get a questionably relevant quote :)"
+"""Enter your text and get a questionably relevant quote :)"""
 
 @st.cache
 def load_quotes():
@@ -33,17 +33,17 @@ def normalize_embeddings(quotes):
     return normed_embeddings
 
 
-# @st.cache
-# def create_index(embeddings):
-#     dim = embeddings.shape[1]
-#     index = faiss.IndexFlatL2(dim)
-#     index.add(embeddings)
-#     return index
-
-bc = BertClient()
+@st.cache
+def create_index(embeddings):
+    dim = embeddings.shape[1]
+    index = faiss.IndexFlatL2(dim)
+    index.add(embeddings)
+    return index
 
 quotes = load_quotes()
 embeddings = normalize_embeddings(quotes)
+
+bc = BertClient()
 
 dim = embeddings.shape[1]
 index = faiss.IndexFlatL2(dim)
@@ -51,17 +51,18 @@ index.add(embeddings)
 
 text = st.text_area(
     "Your text",
-    "Here is an angry email. I'm so annoyed at this thing you did. You've really let me down here."
+    "I have a dream."
 )
 
 text_embedding = bc.encode([text])
+normalized_text_embedding = text_embedding / text_embedding.sum()
 
-d, i = index.search(text_embedding, 5)
+d, i = index.search(normalized_text_embedding, 5)
 
 relevant_quotes = quotes.iloc[i.flatten()].QUOTE.values
 relevant_authors = quotes.iloc[i.flatten()].AUTHOR.values
 
-st.text("Here are five \"relevant\" quotes:")
+"""Here are five "relevant" quotes:"""
 
 for ix in range(5):
     st.markdown('>'+relevant_quotes[ix])
