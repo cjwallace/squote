@@ -44,6 +44,7 @@ make embed  # this computes the embeddings
 Once the embeddings exist, we can run the streamlit app with:
 
 ```bash
+make serve  # not needed if still running from above
 make app
 ```
 
