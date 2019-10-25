@@ -15,25 +15,16 @@ st.subheader("Semantic quote search")
 """Enter your text and get a questionably relevant quote :)"""
 
 @st.cache(allow_output_mutation=True)
-def load_quotes():
+def load_quotes_and_embeddings():
     quotes = pd.read_pickle('data/embedded_quotes.pkl')
-    # streamlit's hashing (for caching) doesn't love pickle:
-    quotes = quotes.copy()
-    return quotes
-
-
-@st.cache(allow_output_mutation=True)
-def normalize_embeddings(quotes):
-    quotes = quotes.copy()
     quote_embeddings = np.stack(quotes.EMBEDDINGS.values).astype('float32')
 
-    # normalizing for cosine distance
+    # normalize embeddings for cosine distance
     embedding_sums = quote_embeddings.sum(axis=1)
     normed_embeddings = quote_embeddings / embedding_sums[:, np.newaxis]
-    return normed_embeddings
+    return quotes, normed_embeddings
 
-quotes = load_quotes()
-embeddings = normalize_embeddings(quotes)
+quotes, embeddings = load_quotes_and_embeddings()
 
 bc = BertClient()
 
