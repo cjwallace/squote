@@ -2,6 +2,8 @@
 
 A semantic search engine that takes some input text and returns some (questionably) relevant (questionably) famous quotes.
 
+![Squote finding relevant quotes](https://user-images.githubusercontent.com/6513950/67687144-bee79b80-f98f-11e9-975f-76c71207f7a0.gif)
+
 Built with:
 - [bert-as-a-service](https://github.com/hanxiao/bert-as-service)
 - [faiss](https://github.com/facebookresearch/faiss)
