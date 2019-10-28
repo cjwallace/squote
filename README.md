@@ -6,7 +6,7 @@ A semantic search engine that takes some input text and returns some (questionab
 
 Built with:
 - [bert-as-a-service](https://github.com/hanxiao/bert-as-service)
-- [faiss](https://github.com/facebookresearch/faiss)
+- [faiss](https://github.com/facebookresearch/faiss) (actually, [faiss_prebuilt](https://github.com/onfido/faiss_prebuilt))
 - [streamlit](https://github.com/streamlit/streamlit)
 
 Quotes from [https://thewebminer.com/](https://thewebminer.com/).
@@ -22,6 +22,7 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
+There are additional native dependencies for FAISS: `libomp` and `libopenblas` must be available (see the FAISS repo for install instructions).
 All other commands should be run from within the virtual environment.
 
 A Makefile is provided to make things nice and easy.
