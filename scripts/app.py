@@ -76,3 +76,5 @@ st.markdown(
     Made by [chrjs](chrjs.io).
     """
 )
+
+bc.close()
