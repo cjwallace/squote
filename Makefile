@@ -19,4 +19,4 @@ embed:
 	python scripts/embed.py
 
 app:
-	streamlit run scripts/app.py
+	streamlit run scripts/squote.py
