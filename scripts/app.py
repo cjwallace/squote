@@ -73,7 +73,7 @@ st.markdown(
 
     The repo is hosted on GitHub at [cjwallace/squote](https://github.com/cjwallace/squote).
 
-    Made by [chrjs](chrjs.io).
+    Made by [chrjs](https://chrjs.io).
     """
 )
 
