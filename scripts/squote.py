@@ -36,14 +36,24 @@ def load_quotes_and_embeddings():
     normed_embeddings = quote_embeddings / embedding_sums[:, np.newaxis]
     return quotes, normed_embeddings
 
+
+@st.cache(allow_output_mutation=True)
+def create_index(embeddings):
+    """
+    Create an index over the quote embeddings for fast similarity search.
+    """
+    dim = embeddings.shape[1]
+    index = faiss.IndexFlatL2(dim)
+    index.add(embeddings)
+    return index
+
+
 quotes, embeddings = load_quotes_and_embeddings()
+
+index = create_index(embeddings)
 
 bc = BertClient()
 
-# Create an index for fast vector search
-dim = embeddings.shape[1]
-index = faiss.IndexFlatL2(dim)
-index.add(embeddings)
 
 text = st.text_area(
     "Your text",
