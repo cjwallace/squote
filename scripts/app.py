@@ -20,7 +20,16 @@ questionably famous quotes.
 @st.cache(allow_output_mutation=True)
 def load_quotes_and_embeddings():
     quotes = pd.read_pickle('data/embedded_quotes.pkl')
-    quote_embeddings = np.stack(quotes.EMBEDDINGS.values).astype('float32')
+
+    # change dtype in place for memory efficiency
+    quotes['EMBEDDINGS'] = quotes['EMBEDDINGS'].apply(
+        lambda arr: np.array(arr, dtype='float32')
+    )
+
+    quote_embeddings = np.stack(quotes.EMBEDDINGS.values)
+
+    # reduce memory footprint by dropping column
+    quotes.drop('EMBEDDINGS', axis='columns')
 
     # normalize embeddings for cosine distance
     embedding_sums = quote_embeddings.sum(axis=1)
