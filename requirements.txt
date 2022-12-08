@@ -9,7 +9,7 @@ bert-serving-server==1.9.8
 blinker==1.4
 boto3==1.10.2
 botocore==1.13.2
-certifi==2019.9.11
+certifi==2022.12.7
 chardet==3.0.4
 Click==7.0
 decorator==4.4.0
